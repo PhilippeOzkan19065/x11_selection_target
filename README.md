@@ -40,3 +40,10 @@ keep that information separately; `from_mime` cannot recover it.
 - `to_mime(atom: str) -> str` — exact, case-sensitive atom lookup.
 - `from_mime(mime: str) -> str` — case-insensitive MIME lookup, ignoring
   surrounding whitespace but not extra parameters.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
